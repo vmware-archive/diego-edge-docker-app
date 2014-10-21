@@ -5,7 +5,7 @@ This is a docker app used in the Diego Edge Whetstone tests.
 ##Running Locally
 
     make
-    docker run diego-edge
+    docker run -p 8080:8080 dajulia3/diego-edge-docker-app
     
     
 ###To hit the app:
