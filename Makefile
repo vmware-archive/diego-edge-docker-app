@@ -1,7 +1,7 @@
 TAG?=latest
 
 all: dockerapp
-	docker build -t dajulia3/diego-edge-docker-app:${TAG} .
+	docker build -t diegoedge/diego-edge-docker-app:${TAG} .
 	rm dockerapp
 
 dockerapp: main.go
