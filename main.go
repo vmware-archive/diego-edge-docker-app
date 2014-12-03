@@ -14,13 +14,13 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func instanceIndexHandler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte(instanceIndex))
+	w.Write([]byte(fetchIndex()))
 }
 
 func main () {
 	go func() {
 		for {
-			fmt.Println(fmt.Sprintf("Diego Edge Docker App. Says Hello (Instance %s)", instanceIndex))
+			fmt.Println(fmt.Sprintf("Diego Edge Docker App. Says Hello (Instance %s)", fetchIndex()))
 			time.Sleep(1 * time.Second)
 		}
 	}()
@@ -29,4 +29,12 @@ func main () {
 	http.HandleFunc("/instance-index", instanceIndexHandler)
 
 	http.ListenAndServe(":8080", nil)
+}
+
+func fetchIndex() string {
+	index := os.Getenv("CF_INSTANCE_INDEX")
+	if index == "" {
+		index = os.Getenv("INSTANCE_INDEX")
+	}
+	return index
 }

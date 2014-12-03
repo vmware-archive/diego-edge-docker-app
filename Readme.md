@@ -5,7 +5,7 @@ This is a docker app used in the Diego Edge Whetstone tests.
 ##Running Locally
 
     make
-    docker run -p 8080:8080 diegoedge/test-app
+    docker run -p 8080:8080 diegoedge/diego-edge-docker-app
     
     
 ###To hit the app:
@@ -14,4 +14,5 @@ This is a docker app used in the Diego Edge Whetstone tests.
 
 
 ##To push to dockerhub
-    docker push diegoedge/test-app
+    docker login
+    docker push diegoedge/diego-edge-docker-app
