@@ -1,26 +1,33 @@
 package main
 
 import (
+	"flag"
 	"fmt"
-	"time"
-	"os"
 	"net/http"
+	"os"
+	"time"
 )
 
-var instanceIndex string = os.Getenv("CF_INSTANCE_INDEX")
+var message string
+
+func init() {
+	flag.StringVar(&message, "message", "Hello", "The Message to Log and Display")
+	flag.Parse()
+}
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("<h1>Hello world</h1><p>I'm a Docker app living on Diego!</p>"))
+	display := fmt.Sprintf("<h1>%s</h1><p>I'm a Docker app living on Diego!</p>", message)
+	w.Write([]byte(display))
 }
 
 func instanceIndexHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(fetchIndex()))
 }
 
-func main () {
+func main() {
 	go func() {
 		for {
-			fmt.Println(fmt.Sprintf("Diego Edge Docker App. Says Hello (Instance %s)", fetchIndex()))
+			fmt.Println(fmt.Sprintf("Diego Edge Docker App. Says %s (Instance %s)", message, fetchIndex()))
 			time.Sleep(1 * time.Second)
 		}
 	}()
